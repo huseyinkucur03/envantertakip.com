@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block icerik %}
+
+<div class="main-content">
+    <div class="urunler">
+        <h2>Ürünler Listesi</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'error' %}
+                    <div class="flash-message-red">{{ message }}</div>
+                {% else %}
+                    <div class="flash-message-green">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        
+        <table id="urunlerTable">
+            <thead class="sutunBasliklari">
+                <tr>
+                    <th class="hidden-column" onclick="sortTable(0)">Ürün ID</th>
+                    <th onclick="sortTable(1)">Ürün Adı</th>
+                    <th onclick="sortTable(2)">Ürün Markası</th>
+                    <th onclick="sortTable(3)">Ürün Adedi</th>
+                    <th onclick="sortTable(4)">Ürün Özelliği</th>
+                    <th>Sil</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for urun in urunler %}
+                <tr>
+                    <td class="hidden-column">{{ urun[0] }}</td>
+                    <td>{{ urun[1] }}</td>
+                    <td>{{ urun[2] }}</td>
+                    <td>{{ urun[3] }}</td>
+                    <td>{{ urun[4] }}</td>
+                    <td>
+                        <form action="/urunsil/{{ urun[0] }}" method="POST" onsubmit="return confirm('Bu ürünü silmek istediğinizden emin misiniz?');">
+                            <button type="submit" class="delete-button">Sil</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>            
+        </table>
+        <div class="container">
+            <!-- Sayfalama Kısmı -->
+            <div class="pagination">
+                {% if page > 1 %}
+                    <a class="pagination-link" href="{{ url_for('anasayfa', page=page-1) }}">Önceki</a>
+                {% endif %}
+                
+                <span class="pagination-info">Sayfa {{ page }} / {{ total_pages }}</span>
+                
+                {% if page < total_pages %}
+                    <a class="pagination-link" href="{{ url_for('anasayfa', page=page+1) }}">Sonraki</a>
+                {% endif %}
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block icerik %}
+
+
+<div class="urunekle-main-content">
+    <h2>Yeni Ürün Ekle</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div class="flash-message-red">{{ message }}</div>
+            {% else %}
+                <div class="flash-message-green">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    
+    <form method="POST" action="{{ url_for('urunekle') }}">
+        <div class="form-group">
+            <label for="urun_adi">Ürün Adı</label>
+            <input type="text" id="urun_adi" name="urun_adi" required>
+        </div>
+        <div class="form-group">
+            <label for="urun_markasi">Ürün Markası</label>
+            <input type="text" id="urun_markasi" name="urun_markasi" required>
+        </div>
+        <div class="form-group">
+            <label for="urun_adedi">Ürün Adedi</label>
+            <input type="number" id="urun_adedi" name="urun_adedi" min="1" required>
+        </div>
+        <div class="form-group">
+            <label for="urun_ozelligi">Ürün Özelliği</label>
+            <input type="text" id="urun_ozelligi" name="urun_ozelligi" required>
+        </div>
+
+        <button type="submit">Ürün Ekle</button>
+    </form>
+</div>
+
+{% endblock %}

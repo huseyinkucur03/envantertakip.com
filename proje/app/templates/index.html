@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block icerik %}
+<style>
+    body {
+        background-image: url("{{ url_for('static', filename='img/arkaplan.jpg') }}");
+    }
+</style>
+
+<div class="login-container">
+    <h1>Giriş Yap</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div class="flash-message-red">{{ message }}</div>
+            {% else %}
+                <div class="flash-message-green">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <form action="/girisyap" method="post">
+        <input type="text" name="username" placeholder="Kullanıcı Adı" required>
+        <input type="password" name="password" placeholder="Şifre" required>
+        <button type="submit">Giriş</button>
+    </form>
+</div>
+
+{% endblock %}
+
+{% set hide_sidebar = True %}

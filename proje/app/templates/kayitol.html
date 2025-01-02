@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block icerik %}
+
+<form method="post" action="/kayitol">
+    Username: <input type="text" name="inp_username"><br>
+    Password: <input type="password" name="inp_password"><br>
+    Name: <input type="text" name="inp_name"><br>
+    Surname: <input type="text" name="inp_surname"><br>
+    <input type="submit" value="Gönder">
+</form>
+
+{% endblock %}

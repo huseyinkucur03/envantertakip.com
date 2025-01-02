@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block icerik %}
+<div class="urunekle-main-content">
+
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div class="flash-message-red">{{ message }}</div>
+            {% else %}
+                <div class="flash-message-green">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('profil') }}">
+        <div class="form-group">
+            <label for="ad">Ad</label>
+            <input type="text" id="ad" name="ad" value="{{ user_data[0] }}" required>
+        </div>
+        <div class="form-group">
+            <label for="soyad">Soyad</label>
+            <input type="text" id="soyad" name="soyad" value="{{ user_data[1] }}" required>
+        </div>
+        <div class="form-group">
+            <label for="kullaniciAdi">Kullanıcı Adı</label>
+            <input type="text" id="kullaniciAdi" name="kullaniciAdi" value="{{ user_data[2] }}" required>
+        </div>
+        <div class="form-group">
+            <label for="sifre">Şifre</label>
+            <input type="password" id="sifre" name="sifre"  value="{{ user_data[3] }}" required>
+        </div>
+        <div class="form-group">
+            <label for="sifretekrar">Şifre Tekrar</label>
+            <input type="password" id="sifretekrar" name="sifretekrar" value="{{ user_data[3] }}" required>
+        </div>
+        <button type="submit">Bilgileri Güncelle</button>
+    </form>
+</div>
+{% endblock %}

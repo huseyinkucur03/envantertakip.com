@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/stil.css') }}">
+</head>
+
+<body> 
+    {% if not hide_sidebar %}
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="{{ url_for('anasayfa') }}">
+                <h2>Stok Takip</h2>
+            </a>
+            <!-- <h2>Stok Takip</h2> -->
+        </div>
+        <ul class="nav">
+            <li><a href="{{ url_for('anasayfa') }}">Anasayfa</a></li>
+            <li><a href="{{ url_for('urunekle') }}">Ürün Ekle</a></li>
+            <li><a href="{{ url_for('kullaniciekle') }}">Kullanıcı Ekle</a></li>
+            <li><a href="{{ url_for('profil') }}">Profil</a></li>
+            <li><a href="{{ url_for('cikis') }}">Çıkış Yap</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <p>Giriş Yapan: {{ session.get('username', 'Kullanıcı') }}</p>
+        </div>
+        <header>
+            <form action="{{ url_for('anasayfa') }}" method="GET">
+                <input type="text" name="search" placeholder="Arayın..." value="{{ request.args.get('search', '') }}">
+                <button type="submit">Arama</button>
+            </form>
+        </header>
+    </div>
+    {% endif %}
+
+    {% block icerik %}
+    {% endblock %}
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

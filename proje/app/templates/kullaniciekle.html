@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block icerik %}
+
+
+<div class="urunekle-main-content">
+    <h2>Yeni Kullanıcı Ekle</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div class="flash-message-red">{{ message }}</div>
+            {% else %}
+                <div class="flash-message-green">{{ message }}</div>
+            {% endif %}     
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('kullaniciekle') }}">
+        <div class="form-group">
+            <label for="ad">Ad</label>
+            <input type="text" id="ad" name="ad" required>
+        </div>
+        <div class="form-group">
+            <label for="soyad">Soyad</label>
+            <input type="text" id="soyad" name="soyad" required>
+        </div>
+        <div class="form-group">
+            <label for="kullaniciAdi">Kullanıcı Adı</label>
+            <input type="text" id="kullaniciAdi" name="kullaniciAdi" required>
+        </div>
+        <div class="form-group">
+            <label for="sifre">Şifre</label>
+            <input type="password" id="sifre" name="sifre" required>
+        </div>
+        <div class="form-group">
+            <label for="sifretekrar">Şifre Tekrar</label>
+            <input type="password" id="sifretekrar" name="sifretekrar" required>
+        </div>
+        <button type="submit">Kullanıcı Ekle</button>
+    </form>
+</div>
+
+{% endblock %}
